@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>MOZAIKA by Biograpi · 360°</title>
+<link rel="stylesheet" href="pannellum.css">
+<style>
+  html,body{margin:0;padding:0;height:100%;background:#4B889A;overflow:hidden;}
+  #pano{width:100%;height:100vh;background:#4B889A;}
+  .bare-logo{position:absolute;top:16px;left:16px;z-index:6;height:52px;width:auto;
+    filter:drop-shadow(0 3px 10px rgba(0,0,0,.45));pointer-events:none;user-select:none;}
+  @media (max-width:600px){ .bare-logo{height:42px;top:12px;left:12px;} }
+</style>
+</head>
+<body>
+<div id="pano"></div>
+<img class="bare-logo" src="logo.png" alt="MOZAIKA by Biograpi">
+<script src="pannellum.js"></script>
+<script>
+  pannellum.viewer('pano', {
+    type:'multires',
+    multiRes:{basePath:'mozaika1',path:'/%l/%s%y_%x',fallbackPath:'/fallback/%s',
+      extension:'jpg',tileResolution:512,maxLevel:4,cubeResolution:3816},
+    autoLoad:true, autoRotate:-2, autoRotateInactivityDelay:3500,
+    backgroundColor:[0.294,0.533,0.604], sceneFadeDuration:900,
+    showControls:false, showZoomCtrl:false, showFullscreenCtrl:false,
+    keyboardZoom:true, mouseZoom:true, hfov:100, minHfov:50, maxHfov:120, compass:false
+  });
+</script>
+</body>
+</html>
