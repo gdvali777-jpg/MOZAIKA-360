@@ -3,6 +3,39 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script>
+/* Strip Google click-tracking query params so a shared link stays short.
+   Keeps lang and every other non-tracking param, and keeps the hash. No reload. */
+(function () {
+  try {
+    var search = location.search;
+    if (!search || search === "?" || !history.replaceState) return;
+    var named = {
+      "_gl": 1, "_gcl_aw": 1, "_gcl_au": 1, "_gcl_dc": 1,
+      "gclid": 1, "dclid": 1, "gbraid": 1, "wbraid": 1, "gclsrc": 1
+    };
+    var parts = search.substring(1).split("&");
+    var keep = [];
+    var removed = false;
+    for (var i = 0; i < parts.length; i++) {
+      var part = parts[i];
+      if (!part) continue;
+      var eq = part.indexOf("=");
+      var rawKey = eq === -1 ? part : part.substring(0, eq);
+      var key = rawKey;
+      try { key = decodeURIComponent(rawKey); } catch (e) {}
+      key = String(key).toLowerCase();
+      if (named[key] || key.indexOf("_gcl_") === 0) {
+        removed = true;
+      } else {
+        keep.push(part);
+      }
+    }
+    if (!removed) return;
+    history.replaceState(null, "", location.pathname + (keep.length ? "?" + keep.join("&") : "") + location.hash);
+  } catch (e) {}
+})();
+</script>
 <title>Mozaika 360° | Biograpi Living</title>
 <link rel="stylesheet" href="pannellum.css">
 <style>
